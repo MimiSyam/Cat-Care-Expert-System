@@ -1,0 +1,147 @@
+;;;     To execute (On Dialog Window):
+;;;		1) load Cat-Care.clp file, (Click File->Load)
+;;;		2) type (reset). 
+;;;		3) type (run).
+
+(deftemplate cat
+	(slot breed)
+   	(slot body)
+   	(slot fur)
+   	(slot eyes)
+   	(slot neck)
+   	(slot earlobe)
+	(slot leg)
+   	(slot nose))
+
+(deffacts cats
+	(cat (breed "Maine Coon") (body big) (fur long) (eyes sharp) (neck medium) (earlobe wide) (leg medium) (nose pointed))
+	(cat (breed "Persia Himalaya") (body big) (fur long) (eyes sharp) (neck short) (earlobe small) (leg short) (nose flat))
+	(cat (breed "Persia Peaknose") (body big) (fur long) (eyes round) (neck short) (earlobe small) (leg short) (nose flat))
+	(cat (breed "Exotic Shorthair") (body medium) (fur short) (eyes round) (neck short) (earlobe small) (leg short) (nose flat))
+	(cat (breed "Angora") (body medium) (fur long) (eyes sharp) (neck medium) (earlobe wide) (leg medium) (nose pointed))
+	(cat (breed "Siamese") (body medium) (fur short) (eyes sharp) (neck medium) (earlobe medium) (leg medium) (nose pointed))
+	(cat (breed "Scottish Fold") (body medium) (fur short) (eyes round) (neck short) (earlobe small) (leg medium) (nose flat))
+	(cat (breed "Sphynx") (body medium) (fur none) (eyes sharp) (neck medium) (earlobe wide) (leg medium) (nose pointed)))
+
+(defrule reading-input
+   =>	
+	(printout t crlf "****************************************"crlf)
+	(printout t "|WELCOME TO MEOW CAT CARE EXPERT SYSTEM|"crlf)
+	(printout t "****************************************"crlf crlf)
+  	(printout t "Enter your cat body type [medium/big]: " )
+	(bind ?body(read))
+	(assert (body ?body))
+ 	(printout t "Enter your cat fur length [short/long/none]: " )
+	(bind ?fur(read))
+	(assert (fur ?fur))
+  	(printout t "Enter your cat eyes shape [sharp/round]: " )
+   	(bind ?eyes(read))
+	(assert (eyes ?eyes))
+  	(printout t "Enter your cat neck length [short/medium]: " )
+   	(bind ?neck(read))
+	(assert (neck ?neck))
+  	(printout t "Enter your cat earlobe size [small/medium/wide]: " )
+   	(bind ?earlobe(read))
+	(assert (earlobe ?earlobe))
+  	(printout t "Enter your cat leg length [short/medium]: " )
+   	(bind ?leg(read))
+	(assert (leg ?leg))
+  	(printout t "Enter your cat nose shape [pointed/flat]: " )
+   	(bind ?nose(read))
+	(assert (nose ?nose)))
+   
+(defrule checking-input
+   	(body ?body)
+	(fur ?fur)
+	(eyes ?eyes)
+	(neck ?neck)
+	(earlobe ?earlobe)
+	(leg ?leg)
+	(nose ?nose)
+	
+	(cat (breed ?breed1) (body ?body1) (fur ?fur1) (eyes ?eyes1) (neck ?neck1) (earlobe ?earlobe1) (leg ?leg1) (nose ?nose1))
+	(test (eq ?body ?body1))
+	(test (eq ?fur ?fur1))
+	(test (eq ?eyes ?eyes1))
+	(test (eq ?neck ?neck1))
+	(test (eq ?earlobe ?earlobe1))
+	(test (eq ?leg ?leg1))
+	(test (eq ?nose ?nose1))
+
+    =>
+   	(printout t crlf"Your cat breed is " ?breed1 crlf)
+	(printout t crlf "****************************************"crlf)
+	(if (eq ?breed1 "Maine Coon")
+		then (printout t crlf"Cat Care Tips for Maine Coon" crlf
+		      "1. Feed them high-quality dry food, 2-4 times a day."crlf 
+		      "   Do not feed them wet food more than twice a week."crlf
+		      "   Avoid overfeeding your Maine Coon." crlf
+	        crlf "2. Brush Maine Coon regularly, no less than once a week."crlf
+		      "   Buy your cat a scratching post, to help them keep their claws in great condition."crlf
+	        crlf "3. Bathing is optional, though will help to reduce the amount of hair shed."crlf
+		      "   Bathe no more than once per month."crlf
+               crlf "4. Maine Coons need human company. Spend regular time with your Coon."crlf crlf)
+	)
+	(if (eq ?breed1 "Sphynx")
+		then (printout t crlf"Cat Care Tips for Sphynx" crlf 
+		 	"1. It is important to wash your Sphynx weekly as they doesn't have fur to absorb oil produce by their skin."crlf 
+			"   Weekly bathing and daily sponging is needed to prevent oil buildup on their skin."crlf
+			"   Use warm water and hypoallergenic pet shampoo that is free of dyes and perfumes." crlf
+	          crlf "2. Without their fur, they need a warm place during cold weather."crlf
+			   "   Make sure that your cat has access to plenty of blankets and cozy cat beds."crlf crlf)		       
+	)
+
+	(if (eq ?breed1 "Persia Himalaya")
+		then (printout t crlf"Cat Care Tips for Persia Himalaya" crlf
+		       "1. Regularly groom your cat fur as their hair are long."crlf 
+			"   This helps remove and prevent tangling and mats and remove any dirt, dust, or debris."crlf
+			"   Himalayan's fur should be brushed with a sturdy, wide-toothed comb daily." crlf
+                 crlf "2. Give them a nutritious diet for a healthy silky fur and avoid them to shed."crlf crlf)		       
+	)
+
+	(if (eq ?breed1 "Persia Peaknose")
+		then (printout t crlf"Cat Care Tips for Persia Peaknose" crlf
+		 	"1. Regularly groom your cat fur as their hair are long."crlf 
+			"   This helps remove and prevent tangling and mats and remove any dirt, dust, or debris."crlf
+			"   Persian's fur should be brushed with a sturdy, wide-toothed comb daily." crlf
+	         crlf "2. Give them a nutritious diet for a healthy silky fur and avoid them to shed."crlf crlf)		       
+	)
+
+	(if (eq ?breed1 "Exotic Shorthair")
+		then (printout t crlf"Cat Care Tips for Exotic Shorthair" crlf
+		 	 "1. Shorthair have a low maintenance short coat. Brush as needed, at least weekly for a healthy shine."crlf 
+			 "   Brush as needed, at least weekly for a healthy shine."crlf
+		   crlf "2. Exotic Shorthairs have generally good teeth, and you can keep them perfect by brushing them at least twice a week!"crlf
+		   crlf "3. They are prone to obesity, so be sure to watch their weight."crlf crlf)			       
+	)
+
+	(if (eq ?breed1 "Angora")
+		then (printout t crlf"Cat Care Tips for Angora" crlf
+		 	 "1. Brush your cat every day. Turkish Angoras have beautiful, silky coats of a long length."crlf 
+			 "   The coat does not have an undercoat, so it will not get tangled or matted."crlf
+			 "   Use a long-toothed metal brush for your cat's longer coat. You can find these brushes at pet stores."crlf
+		   crlf "2. Feed your cat a meat-based diet. Check the ingredient list on the label. Meat should be in the top two or three ingredients."crlf
+		   crlf "3. Provide a companion for your cat. Turkish Angoras are social cats."crlf
+		        "   They like to interact with others, whether that is a human family member or another pet."crlf crlf)			       
+	)
+
+	(if (eq ?breed1 "Siamese")
+		then (printout t crlf"Cat Care Tips for Siamese" crlf
+		 	 "1. Feed your cat fixed amounts of food."crlf
+			 "   Siamese cats are prone to obesity."crlf 
+			 "   Even a small amount of overeating can cause weight gain."crlf
+		   crlf "2. Brush your cat's teeth regularly. Due to the shape of their head, Siamese cats are prone to dental problems."crlf
+	          crlf "3. Brush your cat regularly. Due to their short coat, Siamese cats do not need extensive brushing like other breeds."crlf
+                       "   However, a light brushing with a stainless steel comb weekly will help your cat's coat stay clean."crlf
+	           crlf "4. Siamese cats love to jump and climb. Provide your cat perches throughout your home to meet this need."crlf crlf)
+	)
+
+	(if (eq ?breed1 "Scottish Fold")
+		then (printout t crlf"Cat Care Tips for Scottish Fold" crlf
+		 	 "1. Scottish folds have dense fur and need regular grooming by brushing once a week. This helps to prevent hairballs."crlf
+		   crlf "2. Scottish Folds don't require regular ear cleaning, it is important to check their ears weekly for any discharge, debris, or irritation." crlf 
+		        "   If their ears are particularly tightly folded, they may require a weekly clean with a vet-recommended ear cleaner."crlf
+		   crlf "3. Feed your cat a meat-based diet. Check the ingredient list on the label. Meat should be in the top two or three ingredients."crlf crlf)
+	)
+)
+
